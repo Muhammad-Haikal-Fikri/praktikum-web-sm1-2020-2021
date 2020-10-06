@@ -1,0 +1,135 @@
+body {
+    font-family: "century gothic";
+    font-size: 14px;
+    font-weight: 200;
+    color: #222;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+
+.nav-atas {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background: #222222;
+    color: #ffffff;
+    height: 80px;
+    display: block;
+}
+
+.nav-atas .container {
+    padding: 5px;
+    display: block;
+    margin-top: 12px;
+}
+
+.nav-atas .container .nav-atas-logo {
+    padding: 5px;
+    height: 40px;
+    display: inline-block;
+}
+
+.nav-atas .container .nav-atas-logo img {
+    height: 30px;
+    border-radius: 50%;
+    float: left;
+    position: absolute;
+    margin-top: 2px;
+}
+
+.nav-atas .container .nav-atas-logo .nav-atas-logo-tulisan p {
+    font-family: Helvetica;
+    font-size: 35px;
+    height: 30px;
+    color: #ffffff;
+    display: inline-block;
+    margin-top: -3px;
+    margin-left: 35px;
+    font-weight: bold;
+}
+
+.nav-atas .container .nav-atas-menu {
+    float: right;
+}
+
+.nav-atas .container ul li {
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.nav-atas .container ul li a {
+    display: block;
+    font-weight: 1000;
+    font-size: 12px;
+    color: #ffffff;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+    text-decoration: none;
+}
+
+.nav-atas .container ul li a:hover {
+    color: #222222;
+    background-color: #ffffff;
+}
+
+.konten {
+    width: 80%;
+    background-color: rgb(243, 243, 243);
+    margin: 70px auto;
+    padding: 10px;
+    border: solid 3px #222222;
+}
+
+.konten header {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.konten header h1 {
+    margin-bottom: 0px;
+}
+
+.konten .konten-rangkuman-kasus {
+    margin-top: 20px;
+    margin-left: 40px;
+    padding: 30px;
+
+}
+
+.konten .konten-rangkuman-kasus .round-box {
+    line-height: 25px;
+    width: 40%;
+    background-color: red;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 15px;
+    background-color: #222222;
+    color: #ffffff;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.konten .konten-rangkuman-kasus .round-box:hover {
+    background-color: rgb(243, 243, 243);
+    color: #222222;
+    animation-delay: 3s;
+    cursor: pointer;
+}
+
+.footer {
+    margin: 0;
+    padding: ;
+    height: 70px;
+    background-color: #222222;
+    color: #ffffff;
+    margin-top: -72px;
+}
+
+.footer p {
+    text-align: center;
+    padding-top: 30px;
+}
