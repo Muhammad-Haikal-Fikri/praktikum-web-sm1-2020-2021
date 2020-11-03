@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+    <title>Dashboard Covid 19 Indonesia</title>
+    <meta name="description" content="Dashboard Covid 19 Indonesia. Data kasus per provinsi dan informasi lainnya terkait penanganan Covid 19">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="UTS-dashboard-covid-19.css">
+    
+  </head>
+  <body>
+    <!-- Header dashboard -->
+    <header id="nav-atas">
+      <div class="container">
+        <div id="nav-atas-logo">
+          <div id="nav-atas-logo-tulisan">
+            <img src="https://assets.website-files.com/5d9ba0eb5f6edb77992a99d0/5e6262b434fc2c034455ff21_5729669-512.png">
+            <p class="title">Dashboard COVID-19 Indonesia</p>
+            </div>
+        </div>
+        <ul id="nav-atas-menu">
+          <li>
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="#">Kasus</a>
+          </li>
+          <li>
+            <a href="#">Bantuan Sosial</a>
+          </li>
+          <li>
+            <a href="#">Donasi</a>
+          </li>
+          <li>
+            <a href="#">Kontak</a>
+          </li>
+          <li>
+            <a href="#" class="button" id="button-download-app">Download App</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    
+    <!-- Konten utama dashboard -->
+    <div id="konten">
+      <header>
+        <h2>Dashboard Statistik Kasus COVID-19 Indonesia</h2>
+        <h4>Kabupaten Sumedang, Jawa Barat</h4>
+        <small>Update Terakhir: Senin, 5 November 2020</small>
+      </header>
+      <hr>
+      <section id="konten-rangkuman-kasus">
+        <div class="round-box">
+          <h4>Total terkonfirmasi</h4>
+          <h3>254.543 Jiwa</h3>
+        </div>
+        <div class="round-box">
+          <h4>Isolasi / dalam perawatan</h4>
+          <h3>104.895 Jiwa</h3>
+        </div>
+        <div class="round-box">
+          <h4>Selesai isolasi / dalam perawatan</h4>
+          <h3>52.876 Jiwa</h3>
+        </div>
+        <div class="round-box">
+          <h4>Meninggal</h4>
+          <h3>48.928 Jiwa</h3>
+        </div>
+      </section>
+
+      <script>
+
+       
+      function prosesPerhitungan() {
+  
+  
+        console.log("Fungsi prosesPerhitungan() dipanggil");
+  
+        var j = document.getElementById("input-j").value;
+
+        var t = document.getElementById("input-t").value;
+  
+        var ptj = t / j * 100; 
+
+        document.getElementById("output-ptj").textContent = ptj + " %";
+
+        var k;
+            if (ptj < 30) {
+                k = "AMAN";
+            } else if (30 < ptj < 70){
+                k = "WASPADA";
+            } else {
+                k = "DARURAT";
+            }
+
+        document.getElementById("output-k").textContent = k;
+  
+      }
+  
+      </script>
+      <h3>Presentase Keterisian Ranjang di Rumah Sakit Ketika Covid-19</h3>
+      <form>
+        <table>
+          <tr>
+            <td>Jumlah total ranjang di rumah sakit</td>
+            <td><input id="input-j"></td>
+          </tr>
+          <tr>
+            <td>Jumlah total ranjang di rumah sakit yang terisi</td>
+            <td><input id="input-t"></td>
+          </tr>
+          <tr>
+            <td colspan="2"><input type="button" id="input-button" value="Kalkulasi Keterisian Ranjang di Rumah Sakit" onclick="prosesPerhitungan()"></td>
+          </tr>
+          <tr>
+            <td>Persentase keterisian</td>
+            <td><p id="output-ptj"></p></td>
+          </tr>
+          <tr>
+            <td>Kondisi</td>
+            <td><p id="output-k"></p></td>
+          </tr>
+        </table> 
+      </form>
+      
+    </div>
+    
+
+    <!-- Bagian footer dari dashboard -->
+    <footer id="footer">
+      <p>Tim Pengelola Dashboard COVID-19 Indonesia</p>
+    </footer> 
+  </body>
+</html> 

@@ -1,0 +1,205 @@
+body {
+
+    font-family: "Century Gothic";
+    font-size: 16px;
+    font-weight: 200;
+    color: #222;
+    background: rgb(241, 240, 240);
+    -webkit-font-smoothing: antialiased;
+}
+
+#nav-atas {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    background: #222222;
+    color: #ffffff;
+    height: 80px;
+    display: flex;
+}
+
+#nav-atas .container {
+    padding: 5px;
+    display: flex;
+    margin-top: 12px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#nav-atas .container #nav-atas-logo {
+    padding: 5px;
+    height: 50px;
+    display: inline-block;
+}
+
+#nav-atas .container #nav-atas-logo img {
+    height: 40px;
+    border-radius: 50%;
+    float: left;
+    position: absolute;
+    margin-top: -2px;
+}
+
+#nav-atas .container #nav-atas-logo #nav-atas-logo-tulisan p {
+    font-family: Helvetica;
+    font-size: 25px;
+    height: 30px;
+    color: #ffffff;
+    display: inline-block;
+    margin-top: 5px;
+    margin-left: 45px;
+    font-weight: bold;
+}
+
+
+#nav-atas .container #nav-atas-menu {
+    display: flex;
+    padding: 5px;
+    margin-top: 10px;
+    justify-content: space-evenly;
+    width: 45%;
+}
+
+#nav-atas .container ul li {
+    display: inline-block;
+}
+
+#nav-atas .container ul li a {
+    padding: 5px;
+    border-radius: 10%;
+    font-weight: 1000;
+    font-size: 14px;
+    color: #e2e2e2;
+    text-transform: uppercase;
+    transition: all 0.5s ease;
+    text-decoration: none;
+}
+
+#nav-atas .container ul li a:hover {
+    color: #999999;
+
+}
+
+#konten {
+    width: 80%;
+    background-color: rgb(231, 231, 231);
+    margin: 70px auto;
+    padding: 30px;
+    border: solid 3px #222222;
+}
+
+#konten header {
+    text-align: center;
+    font-weight: bold;
+}
+
+#konten header h1 {
+    margin-bottom: 0px;
+}
+
+hr {
+    width: 530px;
+    border: solid 0.2px rgb(133, 0, 0);
+}
+
+#konten #konten-rangkuman-kasus {
+    margin-top: 10px;
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#konten #konten-rangkuman-kasus .round-box {
+    line-height: 25px;
+    width: 300px;
+    height: 155px;
+    background-color: red;
+    text-align: center;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    background-color: #222222;
+    color: #ffffff;
+    margin-top: 20px;
+    transition: all 0.35s ease 0s;
+    padding-top: 10px;
+}
+
+#konten #konten-rangkuman-kasus .round-box:hover {
+    -webkit-animation: 0.4s ease;
+    cursor: pointer;
+    background-color: #6d0000;
+    color: #ffe8e8;
+}
+
+#konten #konten-rangkuman-kasus .round-box:hover h3 {
+    text-decoration: underline;
+    color: #f32a2a;
+}
+
+table #output-ptj {
+    line-height: 10px;
+
+}
+
+table #output-k {
+    line-height: 10px;
+}
+
+#footer {
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    margin: 0;
+    padding: 5px;
+    height: 70px;
+    background-color: #222222;
+    color: #ffffff;
+    margin-top: -72px;
+}
+
+#footer p {
+    text-align: center;
+    line-height: 35px;
+}
+
+@media (max-width: 800px) {
+    #nav-atas .container #nav-atas-menu {
+        flex-wrap: wrap;
+    }
+
+    #nav-atas .container #nav-atas-logo img {
+        height: 20px;
+
+    }
+
+    #nav-atas .container #nav-atas-logo #nav-atas-logo-tulisan p {
+        font-size: 20px;
+        font-weight: medium;
+    }
+
+    #nav-atas .container #nav-atas-menu {
+        margin-top: 0px;
+    }
+
+    #nav-atas .container ul li a {
+        font-size: 10px;
+    }
+
+    #konten #konten-rangkuman-kasus .round-box {
+        width: 150px;
+        height: 75px;
+        line-height: normal;
+    }
+
+    #konten #konten-rangkuman-kasus .round-box h4 {
+        font-size: 10px;
+    }
+
+    #konten #konten-rangkuman-kasus .round-box h3 {
+        font-size: 14px;
+        ;
+    }
+}
