@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membuat Grafik Rasio Dokter Dengan Data Dari Web API</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="alert alert-light" role="alert">
+        <marquee>Grafik Rasio Jumlah Penduduk Per 1 Dokter</marquee>
+    </div>
+    <div class="container-fluid">
+      <center><b><h3>INFO KESEHATAN MASA KINI</h3></b></center>
+  <canvas id="canvas-untuk-menggambar-grafik"></canvas>
+
+  <script>
+    function buatDataUntukGrafik(dataPenduduk, dataDokter) {       
+      var label = dataPenduduk.nilai_per_wilayah.map(function(satuanData) {
+        return satuanData.wilayah; 
+      }); 
+
+      var jumlahDokter = dataDokter.nilai_per_wilayah.map(function(satuanData) {
+        return satuanData.nilai_per_tahun[0].nilai;
+      });
+
+      var jumlahPenduduk = dataPenduduk.nilai_per_wilayah.map(function(satuanData) {
+        return satuanData.nilai_per_tahun[0].nilai;
+      });
+
+      var jumlahPendudukPerDokter = dataPenduduk.nilai_per_wilayah.map(function(satuanData, urutan) {
+        return Math.round(jumlahPenduduk[urutan] / jumlahDokter[urutan]);
+      });
+
+      var garisIdealWHOPendudukPerDokter = dataPenduduk.nilai_per_wilayah.map(function(satuanData) {
+        return 1000;
+      });
+
+      var garisIdealBPJSPendudukPerDokter = dataPenduduk.nilai_per_wilayah.map(function(satuanData) {
+        return 5000;
+      });
+
+      var dataUntukGrafik = {
+        labels: label,
+        datasets: [{
+          label: "Rasio Ideal Penduduk per 1 Dokter - WHO",
+          borderColor: "rgb(0, 0, 0)",
+          borderWidth: 1,
+          yAxisID: "sumbu-y-kanan",
+          data: garisIdealWHOPendudukPerDokter,
+          type: 'line'
+        }, {
+          label: "Rasio Ideal Penduduk per 1 Dokter - BPJS",
+          borderColor: "rgb(0, 0, 0)",
+          borderWidth: 3,
+          yAxisID: "sumbu-y-kanan",
+          data: garisIdealBPJSPendudukPerDokter,
+          type: 'line'
+        }, {
+          label: "Jumlah Penduduk",
+          backgroundColor: "rgb(0, 26, 150)",
+          yAxisID: "sumbu-y-kiri",
+          data: jumlahPenduduk
+        }, {
+          label: "Rasio Penduduk per 1 Dokter",
+          yAxisID: "sumbu-y-kanan",
+          backgroundColor: "rgb(150, 64, 64)",
+          data: jumlahPendudukPerDokter
+        }]
+      };
+
+      return dataUntukGrafik;
+    }
+
+    function buatGrafik(dataPenduduk, dataDokter) {
+      var elemenCanvas = document.getElementById("canvas-untuk-menggambar-grafik");
+      var penggambarCanvas = elemenCanvas.getContext("2d");
+
+      var judulGrafik = "Grafik Rasio Jumlah Penduduk";
+      var dataUntukGrafik = buatDataUntukGrafik(dataPenduduk, dataDokter);
+
+      var konfigurasiChartJS = {
+        type: 'bar',
+        data: dataUntukGrafik,
+        options: {
+          responsive: true,
+          title: {
+            display: true,
+            text: judulGrafik
+          },
+          scales: {
+            yAxes: [{
+                type: 'linear',
+                display: true,
+                position: 'left',
+                ticks: {
+                    min: 0
+                },
+                id: 'sumbu-y-kiri'
+              }, {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                ticks: {
+                  min: 0
+                },
+                id: 'sumbu-y-kanan'
+              }]
+          }
+        }
+      }
+
+      var grafik = new Chart(penggambarCanvas, konfigurasiChartJS);
+    }
+
+    window.onload = function() {       
+      var urlDataPenduduk = "https://mechaid.github.io/course-materials/praktikum-web/2020-2021/contoh/json-api-ke-chart/penduduk-jawa-barat-2019.json"; 
+      var urlDataDokter = "https://mechaid.github.io/course-materials/praktikum-web/2020-2021/contoh/json-api-ke-chart/dokter-jawa-barat-2019.json";
+
+      var dataPenduduk, dataDokter;
+
+      var requestDataPenduduk = new XMLHttpRequest();
+      requestDataPenduduk.open("GET", urlDataPenduduk, true);
+      requestDataPenduduk.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+          dataPenduduk = JSON.parse(this.responseText);
+          if(dataDokter !== undefined) {
+            buatGrafik(dataPenduduk, dataDokter);
+          }
+        } 
+      };
+      requestDataPenduduk.send();
+
+      var requestDataDokter = new XMLHttpRequest();
+      requestDataDokter.open("GET", urlDataDokter, true);
+      requestDataDokter.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+          dataDokter = JSON.parse(this.responseText);
+          if(dataPenduduk !== undefined) {
+            buatGrafik(dataPenduduk, dataDokter);
+          }
+        } 
+      };
+      requestDataDokter.send();         
+    };
+  </script>
+  </div>
+<div class="artikel">
+  <h2>Tips Menjaga Kesehatan Mental selama Masa COVID-19</h2>
+  <img src="http://kotaku.pu.go.id/content/upload/Media/Warta/Warta%20Images/200427-kesehatanmental.jpg"><br>
+  
+  <ol>
+    <li>Cukup waktu</li>
+    <p>Isolasi mandiri di rumah tidak selalu berarti kita banyak tidur. Justru mungkin sebaliknya, malah lebih banyak yang dilakukan di rumah. Sebagian orang bahkan melakukan kerja dari rumah dan cenderung lupa waktu dalam menyelesaikan pekerjaannya. Untuk itu, perlu lebih disiplin dalam mengatur waktu tidur. Waktu ideal bagi tubuh beristirahat adalah 7-8 jam setiap hari wajib dipenuhi, tak hanya bagi anak-anak, tapi juga orang dewasa dan lanjut usia.</p>
+    <li>Menenangkan pikiran dengan mengelola aktivitas rutin harian di rumah.</li>
+    <p>Sisihkan waktu untuk diri sendiri, lakukan hal yang menyenangkan dan menenangkan (relaksasi) bagi diri. Seharian dalam rumah bisa menimbulkan rasa jenuh yang tinggi, apalagi bagi kita yang terbiasa aktif bekerja dan melakukan pekerjaan di lapangan. Masa COVID-19 amat membatasi gerak gerik kita di luar rumah. Untuk itu, kita bisa menyusun rencana kegiatan harian, yang tidak terkait pekerjaan (WFH) ataupun wabah penyakit COVID-19 ini. Setiap orang punya caranya masing-masing. Ada yang merasa tenang dengan cara beribadah, ada yang melakukan yoga atau meditasi, ada juga yang mendengarkan musik, menonton film atau channel video streaming hiburan melalui internet. Silakan lakukan semua hal yang dirasa cocok bagi diri sendiri. Tapi ingat, jangan berlebihan agar manajemen waktu rutinitas harian tetap terjaga</p>
+    <li>Batasi diri dalam mengakses informasi terkait COVID-19.</li>
+    <p>Membatasi diri bukan berarti dilarang mengakses informasi terkini terkait COVID-19. Ingat prinsip: waspada wajib, panik jangan. Kita harus bijak dalam memilih dan memilah informasi yang berhubungan dengan COVID-19. Tujuannya agar tidak terjebak dalam hoax, yang justru akan membuat kita lebih stres, terombang-ambing dalam informasi palsu dan berlebihan yang sumbernya tidak jelas. Untuk itu, disiplin membaca informasi hanya dari sumber resmi dan terpercaya, amat perlu dilakukan.</p>
+    <li>Makan makanan sehat.</li>
+    <p>Menjaga nutrisi makanan memadai untuk tubuh agar tetap sehat dan berfungsi optimal sangatlah penting. Asupan gizi yang ideal adalah 4 sehat 5 sempurna, dengan takaran diseimbangkan dengan kondisi. Karbohidrat secukupnya, perbanyak sayuran, buah-buahan, dan susu. Pilih juga makanan yang banyak mengandung vitamin C, mengingat sifat antioksidan tinggi dalam vitamin C terbukti mampu membantu meningkatkan sistem imunitas tubuh agar terhindar dari serangan penyakit, termasuk kemungkinan terinfeksi COVID-19.</p>
+    <li>Hindari merokok dan minuman mengandung alkohol.</li>
+    <p>Berbagai studi sains membuktikan bahwa merokok dan mengonsumsi alkohol dapat merusak sel-sel tubuh. Hal ini membuat kita lebih rentan terserang penyakit, termasuk COVID-19. Merokok meningkatkan risiko terinfeksi virus corona, bahkan memperparah komplikasi penyakit akibat COVID-19. Ini mengingat bahwa virus corona juga menyerang paru-paru</p>
+    <li>ingkatkan kepedulian kepada diri sendiri dan sekitar.</li>
+    <p>Memikirkan diri sendiri dan juga keadaan di sekitar kita bisa dilakukan di masa COVID-19 ini. Kita bisa melakukan kontemplasi (perenungan) diri agar bisa menjadi versi yang lebih baik daripada diri kita sebelumnya. Hal ini sangat baik dilakukan guna mengurangi tingkat stres akibat rasa kesepian yang mungkin hadir dalam diri. Di sisi lain, mulailah juga lebih peduli kepada sekitar. Tanyakan kabar keluarga dan kerabat secara rutin, melalui alat komunikasi, bahkan media sosial. Berikan bantuan jika mereka memerlukan dan kita mampu melakukannya. Hal ini bisa menjadi jalan "menjaga silaturahim" yang tentunya baik bagi kesehatan mental satu sama lain. </p>
+</ol>
+
+
+</div>
+</body>
+</html>

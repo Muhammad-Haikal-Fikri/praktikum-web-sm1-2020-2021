@@ -1,0 +1,25 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(255, 255, 255);
+}
+
+.artikel {
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 70px;
+
+}
+
+.artikel li {
+    font-weight: bold;
+}
+
+img {
+    float: left;
+    margin-right: 30px;
+    width: 450px;
+    padding-top: 25px;
+
+}
